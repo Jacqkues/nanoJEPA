@@ -9,6 +9,7 @@ from models.utils import top_k_top_p_filtering
 from models.vision_transformer import ViT
 from models.language_model import LanguageModel
 from models.modality_projector import ModalityProjector
+from models.vision_jepa import Vjepa
 from models.config import VLMConfig
 
 from data.processors import get_tokenizer
@@ -22,13 +23,9 @@ class VisionLanguageModel(nn.Module):
     def __init__(self, cfg: VLMConfig, load_backbone=True):
         super().__init__()
         self.cfg = cfg
-        if load_backbone:
-            print("Loading from backbone weights")
-            self.vision_encoder = ViT.from_pretrained(cfg)
-            self.decoder = LanguageModel.from_pretrained(cfg)
-        else:
-            self.vision_encoder = ViT(cfg)
-            self.decoder = LanguageModel(cfg)
+        print("Loading from backbone weights")
+        self.vision_encoder = Vjepa()
+        self.decoder = LanguageModel.from_pretrained(cfg)
         self.MP = ModalityProjector(cfg)
         self.load_backbone = load_backbone
         self.tokenizer = get_tokenizer(cfg.lm_tokenizer, cfg.vlm_extra_tokens, cfg.lm_chat_template)

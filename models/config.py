@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 @dataclass
 class VLMConfig:
-    vit_hidden_dim: int = 768
+    vit_hidden_dim: int = 1024
     vit_inter_dim: int = 4 * vit_hidden_dim
     vit_patch_size: int = 16
     vit_img_size: int = 256
