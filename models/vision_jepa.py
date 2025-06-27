@@ -5,6 +5,7 @@ from transformers import AutoVideoProcessor, AutoModel
 class Vjepa(nn.Module):
 
     def __init__(self):
+        super().__init__()
         hf_repo = "facebook/vjepa2-vitl-fpc64-256"
         self.model = AutoModel.from_pretrained(hf_repo)
         self.processor = AutoVideoProcessor.from_pretrained(hf_repo)
